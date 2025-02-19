@@ -3,10 +3,10 @@ version: '3.8'
 services:
   app1:
     build:
-      context: ./products
+      context: ./products-api
     ports:
       - "8080:8080"
-    container_name: api-products
+    container_name: products-api
     networks:
       - minha_rede
 
@@ -15,7 +15,7 @@ services:
       context: ./customers-api
     ports:
       - "8081:8080"
-    container_name: api-customers
+    container_name: customers-api
     networks:
       - minha_rede
 
