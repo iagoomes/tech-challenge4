@@ -68,8 +68,119 @@ A documentação das APIs de cada microsserviço está disponível nos links aba
 ### Microsserviço de Logística de Entrega
 - **Swagger:** [http://localhost:8083/logistics-api/swagger-ui.html]
 
+## Payloads
+
+Para melhor utilização das APIs veja o fluxo ou passo a passo da trajetoria da aplicação.
+```
+Sistema de Gerenciamento de Pedidos
+├── Criar Cliente
+│   ├── POST /api/customers (via Postman)
+│   └── Armazena no API CUSTOMER
+│
+├── Criar Produtos (Carga em Massa)
+│   ├── POST /api/products (via Postman)
+│   ├── Processamento via Spring Batch para o arquivo csv ou requisição com corpo de requisição JSON
+│   └── Armazena no API PRODUCTS
+│
+├── Criar Pedido
+│   ├── POST /api/orders (via Postman)
+│   └── Armazena no API ORDERS
+│
+├── Processamento de Pagamento
+│   ├── API ORDERS chama API PAYMENTS
+│   └── Mock de pagamento realizado
+│
+├── Publicação para Logística
+│   ├── API ORDERS publica evento para API LOGISTICS
+│   └── Kafka é utilizado para comunicação assíncrona
+│
+├── Rastreamento do Pedido
+│   ├── GET /tracking na API LOGISTICS
+│   └── Retorna status da entrega
+│
+└── Atualização do Pedido
+    ├── API LOGISTICS publica evento para API ORDERS
+    └── Pedido atualizado conforme status de entrega
+```
+
+### Payloads de Exemplo: 
+
+**Customer payload - /customers**
+```json
+{
+  "name": "Teste",
+  "email": "test3e2com@email",
+  "phone": "3832138548",
+  "cellPhone": "38998413888",
+  "zipCode": "39401365",
+  "address": "Teste",
+  "addressNumber": "600",
+  "neighborhood": "Bairro",
+  "city": "Cidade",
+  "state": "Estado",
+  "complement": "Complemento"
+}
+```
+
+**Product payload - /products**
+```json
+{
+  "name": "Product name",
+  "description": "Product Description",
+  "price": 99.99,
+  "stockQuantity": 100
+}
+```
+
+**Order payload**
+
+```json
+{
+  "customerId": "UUID",
+  "items": [
+    {
+      "productId": "1",
+      "quantity": 1,
+      "unitPrice": 100
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Rua Ciclano",
+    "number": "123",
+    "complement": "Apto 45B",
+    "district": "Centro",
+    "city": "Cidade Fictícia",
+    "state": "SP",
+    "country": "Brasil",
+    "postalCode": "12345-678"
+  },
+  "paymentMethod": "CREDIT_CARD"
+}
+```
+
+## Payload implicito entre API Order e API Logiseics
+
+```json
+{
+  "orderId": "{{$randomUUID}}",
+  "customerId": "{{$randomUUID}}",
+  "address": {
+    "street": "Rua Ciclano",
+    "number": "123",
+    "complement": "Apto 45B",
+    "district": "Centro",
+    "city": "Cidade Fictícia",
+    "state": "SP",
+    "country": "Brasil",
+    "postalCode": "12345-678"
+  }
+}
+```
+
+
 ## Autores
 - Fernando Aragão
 - Iago Gomes
 - Yago Souza
 - Felipe Shai
+
