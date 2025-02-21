@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.domain;
+package br.com.fiap.postech.logistics.domain;
 
 import br.com.fiap.postech.logistics.domain.model.Delivery;
 import org.junit.jupiter.api.Test;

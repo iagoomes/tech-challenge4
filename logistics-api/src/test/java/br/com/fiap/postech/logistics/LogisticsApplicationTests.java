@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics;
+package br.com.fiap.postech.logistics;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

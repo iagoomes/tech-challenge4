@@ -21,7 +21,7 @@ class UpdateProductUseCaseImplTest {
     }
 
     @Test
-    void execute_ValidIdAndProduct_ReturnsUpdatedProduct() {
+    void executeValidIdAndProductReturnsUpdatedProduct() {
         Long productId = 1L;
         ProductApiModel productApiModel = new ProductApiModel();
         when(updateProductGateway.updateProduct(productId, productApiModel)).thenReturn(productApiModel);
@@ -32,19 +32,19 @@ class UpdateProductUseCaseImplTest {
     }
 
     @Test
-    void execute_NullId_ThrowsInvalidProductException() {
+    void executeNullIdThrowsInvalidProductException() {
         ProductApiModel productApiModel = new ProductApiModel();
         assertThrows(InvalidProductException.class, () -> updateProductUseCase.execute(null, productApiModel));
     }
 
     @Test
-    void execute_NullProduct_ThrowsInvalidProductException() {
+    void executeNullProductThrowsInvalidProductException() {
         Long productId = 1L;
         assertThrows(InvalidProductException.class, () -> updateProductUseCase.execute(productId, null));
     }
 
     @Test
-    void execute_GatewayThrowsException_ThrowsException() {
+    void executeGatewayThrowsExceptionThrowsException() {
         Long productId = 1L;
         ProductApiModel productApiModel = new ProductApiModel();
         when(updateProductGateway.updateProduct(productId, productApiModel)).thenThrow(new RuntimeException("Database error"));

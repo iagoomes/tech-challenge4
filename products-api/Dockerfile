@@ -20,7 +20,7 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the JAR generated in the build stage
-COPY --from=builder /app/target/products-api-0.0.1-SNAPSHOT.jar /app/products.jar
+COPY --from=builder /app/target/products-api-1.0.0.jar /app/products.jar
 
 # Create and mount a volume for the CSV files
 VOLUME /app/batch-files

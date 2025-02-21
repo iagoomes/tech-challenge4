@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.usecases.delivery;
+package br.com.fiap.postech.logistics.usecases.delivery;
 
 import br.com.fiap.postech.logistics.application.exception.custom.DuplicateOrderIdException;
 import br.com.fiap.postech.logistics.application.usecases.delivery.CreateDeliveryUseCaseImpl;

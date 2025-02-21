@@ -11,7 +11,7 @@ RUN ["mvn", "-f", "/app/pom.xml", "clean", "package", "-Dmaven.test.skip=true"]
 #Run stage
 FROM amazoncorretto:21
 
-ARG JAR_NAME="customermanagement-1.0.0.jar"
+ARG JAR_NAME="customer-api-1.0.0.jar"
 
 # Copia o JAR gerado pelo Gradle/Maven para dentro do container
 COPY --from=build /app/target/${JAR_NAME} /app/${JAR_NAME}
@@ -20,6 +20,6 @@ COPY --from=build /app/target/${JAR_NAME} /app/${JAR_NAME}
 EXPOSE "8080:8080"
 
 # Comando para rodar a aplicação
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/customermanagement-1.0.0.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/customer-api-1.0.0.jar"]
 
 

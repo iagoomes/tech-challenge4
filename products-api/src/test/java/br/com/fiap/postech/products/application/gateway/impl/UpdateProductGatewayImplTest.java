@@ -26,7 +26,7 @@ class UpdateProductGatewayImplTest {
     }
 
     @Test
-    void updateProduct_ProductExists_UpdatesAndReturnsProduct() {
+    void updateProductProductExistsUpdatesAndReturnsProduct() {
         Long productId = 1L;
         ProductApiModel productApiModel = new ProductApiModel();
         productApiModel.setName("Updated Name");
@@ -44,7 +44,7 @@ class UpdateProductGatewayImplTest {
     }
 
     @Test
-    void updateProduct_ProductDoesNotExist_ThrowsException() {
+    void updateProductProductDoesNotExistThrowsException() {
         Long productId = 1L;
         ProductApiModel productApiModel = new ProductApiModel();
         when(productRepositoryGateway.findById(productId)).thenReturn(null);

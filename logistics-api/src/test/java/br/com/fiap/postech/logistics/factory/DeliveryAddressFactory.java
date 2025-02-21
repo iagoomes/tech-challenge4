@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.factory;
+package br.com.fiap.postech.logistics.factory;
 
 import br.com.fiap.postech.logistics.application.factory.DeliveryAddressFactoryImpl;
 import br.com.fiap.postech.logistics.domain.model.DeliveryAddress;

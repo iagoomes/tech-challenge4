@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.usecases.courier;
+package br.com.fiap.postech.logistics.usecases.courier;
 
 import br.com.fiap.postech.logistics.application.usecases.courier.AssignCourierUseCaseImpl;
 import br.com.fiap.postech.logistics.domain.model.Courier;

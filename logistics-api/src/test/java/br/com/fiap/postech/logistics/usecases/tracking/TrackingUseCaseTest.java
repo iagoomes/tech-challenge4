@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.usecases.tracking;
+package br.com.fiap.postech.logistics.usecases.tracking;
 
 import br.com.fiap.postech.logistics.application.usecases.TrackingUseCaseImpl;
 import br.com.fiap.postech.logistics.domain.model.Delivery;
