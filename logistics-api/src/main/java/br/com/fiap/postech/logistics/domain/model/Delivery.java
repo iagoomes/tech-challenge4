@@ -20,10 +20,6 @@ public class Delivery {
         this(null, orderId, customerId, null, DeliveryStatus.PENDING, address, null, null);
     }
 
-    public Delivery(UUID orderId, UUID customerId, DeliveryAddress address, Courier courier) {
-        this(null, orderId, customerId, null, DeliveryStatus.PENDING, address, null, null);
-    }
-
     public Delivery(UUID id, UUID orderId, UUID customerId, Courier courier,
                     DeliveryStatus status, DeliveryAddress address,
                     LocalDateTime createdAt, LocalDateTime deliveredAt) {

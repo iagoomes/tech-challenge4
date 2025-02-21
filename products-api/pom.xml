@@ -7,13 +7,22 @@
         <groupId>br.com.fiap.postech</groupId>
         <artifactId>techchallenge4</artifactId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath> <!-- O caminho do pom.xml do pai -->
+        <relativePath/>
     </parent>
 
     <artifactId>products-api</artifactId>
     <version>1.0.0</version>
     <name>products</name>
     <description>products</description>
+
+    <repositories>
+        <!-- Repositório Remoto (Maven Central) -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
 
     <properties>
         <org.mapstruct.version>1.6.2</org.mapstruct.version>

@@ -6,13 +6,22 @@
         <groupId>br.com.fiap.postech</groupId>
         <artifactId>techchallenge4</artifactId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath> <!-- O caminho do pom.xml do pai -->
+        <relativePath/>
     </parent>
 
     <artifactId>customer-api</artifactId>
     <version>1.0.0</version>
     <name>customers-api</name>
     <description>API de gerenciamento de clientes para apresentação de trabalho do Tech Challenger</description>
+
+    <repositories>
+        <!-- Repositório Remoto (Maven Central) -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
 
     <dependencies>
         <dependency>

@@ -1,4 +1,15 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app # Monta o diretório atual dentro do contêiner
+    environment:
+      - MAVEN_OPTS=-Dmaven.repo.local=/root/.m2/repository # Configura o repositório Maven local
+    ports:
+      - "8080:8080"
+
   zookeeper:
     extends:
       file: logistics-api/docker-compose.yml
@@ -34,6 +45,9 @@ services:
       context: ./orders-api
     networks:
       - localhost
+    depends_on:
+      - customers-management
+      - products-management
 
   logistics-management:
     container_name: logistics-api
@@ -41,6 +55,9 @@ services:
       context: ./logistics-api
     networks:
       - localhost
+    depends_on:
+      - customers-management
+      - products-management
 
   nginx:
     image: nginx:latest

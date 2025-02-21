@@ -23,6 +23,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="orders-api" />
         <module name="orders" />
         <module name="logistics-api" />
       </profile>
@@ -85,6 +86,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="customermanagement" />
+        <module name="customers-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -96,8 +98,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="customermanagement" options="-parameters" />
+      <module name="customers-api" options="-parameters" />
       <module name="logistics-api" options="-parameters" />
       <module name="orders" options="-parameters" />
+      <module name="orders-api" options="-parameters" />
       <module name="products" options="-parameters" />
       <module name="products-api" options="-parameters" />
     </option>

@@ -2,5 +2,11 @@
 <project version="4">
   <component name="SonarLintProjectSettings">
     <option name="bindingSuggestionsEnabled" value="false" />
+    <option name="moduleMapping">
+      <map>
+        <entry key="customers-api" value="customermanagement" />
+        <entry key="orders-api" value="orders" />
+      </map>
+    </option>
   </component>
 </project>
