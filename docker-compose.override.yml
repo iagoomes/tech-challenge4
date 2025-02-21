@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    extends:
+      file: logistics-api/docker-compose.yml
+      service: postgres
+
+  zookeeper:
+    extends:
+      file: logistics-api/docker-compose.yml
+      service: zookeeper
+
+  kafka:
+    extends:
+      file: logistics-api/docker-compose.yml
+      service: kafka

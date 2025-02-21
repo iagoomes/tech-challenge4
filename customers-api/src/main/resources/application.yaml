@@ -36,4 +36,4 @@ logging:
     web: DEBUG
 server:
   servlet:
-    context-path: /api/customermanagement/v1
+    context-path: /api/customermanagement
