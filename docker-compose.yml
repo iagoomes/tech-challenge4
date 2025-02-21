@@ -1,9 +1,4 @@
 services:
-  postgres:
-    extends:
-      file: logistics-api/docker-compose.yml
-      service: postgres
-
   zookeeper:
     extends:
       file: logistics-api/docker-compose.yml
@@ -14,35 +9,38 @@ services:
       file: logistics-api/docker-compose.yml
       service: kafka
 
+  kafdrop:
+    extends:
+      file: logistics-api/docker-compose.yml
+      service: kafdrop
+
   products-management:
     container_name: products-api
     build:
       context: ./products-api
     networks:
-      - minha_rede
+      - localhost
 
   customers-management:
     container_name: customers-api
     build:
       context: ./customers-api
     networks:
-      - minha_rede
+      - localhost
 
-#  orders-management:
-#    container_name: orders-api
-#    build:
-#      context: ./orders-api
-#    networks:
-#      - minha_rede
+  orders-management:
+    container_name: orders-api
+    build:
+      context: ./orders-api
+    networks:
+      - localhost
 
   logistics-management:
     container_name: logistics-api
     build:
       context: ./logistics-api
     networks:
-      - minha_rede
-    depends_on:
-      - postgres
+      - localhost
 
   nginx:
     image: nginx:latest
@@ -51,18 +49,14 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - products-management
       - customers-management
-#      - orders-management
+      - products-management
+      - orders-management
       - logistics-management
     networks:
-      - minha_rede
+      - localhost
 
 networks:
-  minha_rede:
+  localhost:
     driver: bridge
-  logistics_kafka-network:
-    driver: bridge
-
-volumes:
-  postgres_data:
+    external: false
