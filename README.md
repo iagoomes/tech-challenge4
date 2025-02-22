@@ -105,7 +105,7 @@ Sistema de Gerenciamento de Pedidos
 
 ### Payloads de Exemplo: 
 
-**Customer payload - /customers**
+**Customer payload - http://localhost/customers/api/v1/customers**
 ```json
 {
   "name": "Teste",
@@ -129,7 +129,7 @@ Product1,Description1,25.50,10
 Product2,Description2,13.40,5
 ```
 
-**Product payload - /products**
+**Product payload - http://localhost/products/api/v1/products**
 ```json
 {
   "name": "Product name",
@@ -139,48 +139,35 @@ Product2,Description2,13.40,5
 }
 ```
 
-**Order payload**
+**Order payload - http://localhost/orders/api/v1/orders**
 
 ```json
 {
-  "customerId": "UUID",
+  "customerId": 1,
   "items": [
     {
-      "productId": "1",
+      "productId": 1,
       "quantity": 1,
-      "unitPrice": 100
+      "unitPrice": 100.0
     }
   ],
   "deliveryAddress": {
-    "street": "Rua Ciclano",
-    "number": "123",
-    "complement": "Apto 45B",
-    "district": "Centro",
-    "city": "Cidade Fictícia",
-    "state": "SP",
-    "country": "Brasil",
-    "postalCode": "12345-678"
+    "zipCode": "12345",
+    "name": "New Address",
+    "addressNumber": "100",
+    "neighborhood": "Downtown",
+    "city": "Springfield",
+    "state": "IL",
+    "complement": "Apt 101"
   },
   "paymentMethod": "CREDIT_CARD"
 }
 ```
-
-## Payload implicito entre API Order e API Logiseics
-
+**Atualização de status da entrega - http://localhost/logistics/api/v1/deliveries/f6112351-3741-4b6f-8e42-952e67b58b12/status**
 ```json
 {
-  "orderId": "{{$randomUUID}}",
-  "customerId": "{{$randomUUID}}",
-  "address": {
-    "street": "Rua Ciclano",
-    "number": "123",
-    "complement": "Apto 45B",
-    "district": "Centro",
-    "city": "Cidade Fictícia",
-    "state": "SP",
-    "country": "Brasil",
-    "postalCode": "12345-678"
-  }
+  "orderId": "f6112351-3741-4b6f-8e42-952e67b58b12",
+  "status": "DELIVERED"
 }
 ```
 
