@@ -121,6 +121,12 @@ Sistema de Gerenciamento de Pedidos
   "complement": "Complemento"
 }
 ```
+**OR**
+``` csv
+name,description,price,stockQuantity
+Product1,Description1,25.50,10
+Product2,Description2,13.40,5
+```
 
 **Product payload - /products**
 ```json
