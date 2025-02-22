@@ -11,7 +11,7 @@ public class DeliveryAddressMapper {
 
     private final DeliveryAddressFactory deliveryAddressFactory;
 
-    public DeliveryAddressMapper(DeliveryAddressFactory deliveryAddressFactory){
+    public DeliveryAddressMapper(DeliveryAddressFactory deliveryAddressFactory) {
         this.deliveryAddressFactory = deliveryAddressFactory;
     }
 
@@ -19,14 +19,13 @@ public class DeliveryAddressMapper {
         if (entity == null) return null;
         return deliveryAddressFactory.create(
                 entity.getId(),
-                entity.getStreet(),
-                entity.getNumber(),
-                entity.getComplement(),
-                entity.getDistrict(),
+                entity.getZipCode(),
+                entity.getName(),
+                entity.getAddressNumber(),
+                entity.getNeighborhood(),
                 entity.getCity(),
                 entity.getState(),
-                entity.getCountry(),
-                entity.getPostalCode()
+                entity.getComplement()
         );
     }
 
@@ -34,28 +33,26 @@ public class DeliveryAddressMapper {
         if (address == null) return null;
         return DeliveryAddressEntity.create(
                 null,
-                address.getStreet(),
-                address.getNumber(),
-                address.getComplement(),
-                address.getDistrict(),
+                address.getZipCode(),
+                address.getName(),
+                address.getAddressNumber(),
+                address.getNeighborhood(),
                 address.getCity(),
                 address.getState(),
-                address.getCountry(),
-                address.getPostalCode()
+                address.getComplement()
         );
     }
 
     public DeliveryAddressDTO toDTO(DeliveryAddress address) {
         return new DeliveryAddressDTO(
                 address.getId(),
-                address.getStreet(),
-                address.getNumber(),
-                address.getComplement(),
-                address.getDistrict(),
+                address.getZipCode(),
+                address.getName(),
+                address.getAddressNumber(),
+                address.getNeighborhood(),
                 address.getCity(),
                 address.getState(),
-                address.getCountry(),
-                address.getPostalCode()
+                address.getComplement()
         );
     }
 }

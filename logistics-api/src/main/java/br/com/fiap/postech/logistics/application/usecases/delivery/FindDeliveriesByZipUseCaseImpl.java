@@ -21,7 +21,7 @@ public class FindDeliveriesByZipUseCaseImpl implements FindDeliveriesByZipUseCas
 
     @Override
     public List<Delivery> execute(String zip) {
-        List<DeliveryEntity> entities = deliveryGateway.findByAddressPostalCode(zip);
+        List<DeliveryEntity> entities = deliveryGateway.findByAddressZipCode(zip);
 
         return entities.stream()
                 .map(mapper::toDomain)

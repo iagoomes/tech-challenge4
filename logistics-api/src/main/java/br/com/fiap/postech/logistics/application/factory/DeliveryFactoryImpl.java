@@ -12,15 +12,15 @@ import java.util.UUID;
 @Component
 public class DeliveryFactoryImpl implements DeliveryFactory {
 
-    public Delivery create(UUID orderId, UUID customerId, DeliveryAddress address) {
+    public Delivery create(UUID orderId, Long customerId, DeliveryAddress address) {
         return new Delivery(orderId, customerId, address);
     }
 
-    public Delivery create(UUID orderId, UUID customerId, DeliveryAddress address, Courier courier) {
+    public Delivery create(UUID orderId, Long customerId, DeliveryAddress address, Courier courier) {
         return new Delivery(orderId, customerId, address, courier);
     }
 
-    public Delivery create(UUID id, UUID orderId, UUID customerId, Courier courier,
+    public Delivery create(UUID id, UUID orderId, Long customerId, Courier courier,
                            DeliveryStatus status, DeliveryAddress address,
                            LocalDateTime createdAt, LocalDateTime deliveredAt) {
         return new Delivery(id, orderId, customerId, courier, status, address, createdAt, deliveredAt);

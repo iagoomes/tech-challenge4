@@ -34,6 +34,9 @@ services:
       context: ./orders-api
     networks:
       - localhost
+    depends_on:
+      - customers-management
+      - products-management
 
   logistics-management:
     container_name: logistics-api
@@ -41,6 +44,9 @@ services:
       context: ./logistics-api
     networks:
       - localhost
+    depends_on:
+      - customers-management
+      - products-management
 
   nginx:
     image: nginx:latest

@@ -7,7 +7,7 @@ public class Delivery {
 
     private final UUID id;
     private final UUID orderId;
-    private final UUID customerId;
+    private final Long customerId;
     private Courier courier;
     private DeliveryStatus status;
     private DeliveryAddress address;
@@ -16,15 +16,15 @@ public class Delivery {
     private Double latitude;
     private Double longitude;
 
-    public Delivery(UUID orderId, UUID customerId, DeliveryAddress address) {
+    public Delivery(UUID orderId, Long customerId, DeliveryAddress address) {
         this(null, orderId, customerId, null, DeliveryStatus.PENDING, address, null, null);
     }
 
-    public Delivery(UUID orderId, UUID customerId, DeliveryAddress address, Courier courier) {
+    public Delivery(UUID orderId, Long customerId, DeliveryAddress address, Courier courier) {
         this(null, orderId, customerId, null, DeliveryStatus.PENDING, address, null, null);
     }
 
-    public Delivery(UUID id, UUID orderId, UUID customerId, Courier courier,
+    public Delivery(UUID id, UUID orderId, Long customerId, Courier courier,
                     DeliveryStatus status, DeliveryAddress address,
                     LocalDateTime createdAt, LocalDateTime deliveredAt) {
         this.id = id;
@@ -39,7 +39,7 @@ public class Delivery {
 
     public UUID getId() { return id; }
     public UUID getOrderId() { return orderId; }
-    public UUID getCustomerId() { return customerId; }
+    public Long getCustomerId() { return customerId; }
     public Courier getCourier() { return courier; }
     public DeliveryAddress getAddress() { return address; }
     public DeliveryStatus getStatus() { return status; }

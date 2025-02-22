@@ -12,7 +12,7 @@ import br.com.fiap.postech.orders.infrastructure.api.models.Product;
 import br.com.fiap.postech.orders.infrastructure.exception.*;
 import br.com.fiap.postech.orders.infrastructure.gateway.impl.OrderRepositoryGatewayImpl;
 import br.com.fiap.postech.orders.infrastructure.mapper.OrderMapper;
-import br.com.fiap.postech.orders.infrastructure.messaging.KafkaProducerService;
+import br.com.fiap.postech.orders.infrastructure.messaging.producer.KafkaProducerService;
 import br.com.fiap.postech.orders.infrastructure.messaging.OrderCreatedEvent;
 import br.com.fiap.postech.orders.infrastructure.messaging.OrderEventPublisher;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +60,8 @@ class CreateOrderUsecaseTest {
     @Mock
     private ProductGateway productGateway;
 
+    private static final Address address = new Address("12345", "Main St", "100", "Downtown", "Metropolis", "NY", "Apt 1");
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -68,8 +70,8 @@ class CreateOrderUsecaseTest {
     @Test
     void shouldCreateOrderSuccessfully() {
         // Criação de IDs aleatórios para simular um cliente e um produto
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+        Long customerId = 1L;
+        Long productId = 1L;
 
 
         // Criação do pedido real
@@ -79,16 +81,7 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -97,16 +90,7 @@ class CreateOrderUsecaseTest {
         Customer customer = new Customer(
                 customerId,
                 "Test Client",
-                "test@test.com",
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-                );
+                "test@test.com",address        );
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
         // Simulação de um produto válido retornado pelo ProductGateway
@@ -130,8 +114,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_ClientNotFound_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -140,16 +125,7 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -166,8 +142,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_ProductNotFound_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -176,31 +153,13 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
 
         // Simulação de um cliente válido retornado pelo ClientGateway
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address(
-                "Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address);
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
         // Simula a ausência do produto no sistema
@@ -218,8 +177,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_InsufficientStock_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Simulação de um item do pedido com quantidade maior do que o estoque disponível
         Order order = new Order();
@@ -228,29 +188,13 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
 
         // Simulação um cliente válido
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address
         );
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
@@ -273,33 +217,19 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_NoItems_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
+        Long customerId = 1L;
         Order order = new Order(
                 OrderStatus.OPEN,
                 customerId,
                 List.of(), // Sem itens
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678"),
+                address,
                 PaymentMethod.CREDIT_CARD,
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
 
         // Simulação um cliente válido
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address
         );
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
@@ -311,7 +241,7 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_NoCustomer_ShouldThrowException() {
-        UUID productId = UUID.randomUUID();
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -319,16 +249,7 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -339,8 +260,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_NegativeQuantity_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -349,30 +271,13 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, -2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
 
         // Simulação de um cliente válido retornado pelo ClientGateway
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address);
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
         // Simulação de um produto válido retornado pelo ProductGateway
@@ -387,8 +292,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_WhenAddressIsNull_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -403,14 +309,7 @@ class CreateOrderUsecaseTest {
         order.setUpdatedAt(LocalDateTime.now());
 
         // Simulação de um cliente válido retornado pelo ClientGateway
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address
         );
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
@@ -419,8 +318,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void testCreateOrder_WhenAddressIsEmpty_ShouldThrowException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -430,7 +330,7 @@ class CreateOrderUsecaseTest {
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
         order.setDeliveryAddress(
-                new Address("", "", "", "", "", "", "", "")
+                new Address("", "", "", "", "", "", "")
         );
 
         // Simulação de um cliente válido retornado pelo ClientGateway
@@ -438,16 +338,7 @@ class CreateOrderUsecaseTest {
                 customerId,
                 "Test Client",
                 "test@test.com",
-                new Address(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""
-                )
+                new Address("", "", "", "", "", "", "")
         );
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
@@ -466,8 +357,9 @@ class CreateOrderUsecaseTest {
 
     @Test
     void shouldPublishEventWhenOrderIsCreated() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+
+        Long customerId = 1L;
+        Long productId = 1L;
 
         // Criação do pedido real
         Order order = new Order();
@@ -476,30 +368,13 @@ class CreateOrderUsecaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
 
         // Simulação de um cliente válido retornado pelo ClientGateway
-        Customer customer = new Customer(customerId, "Test Client", "test@test.com", new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        Customer customer = new Customer(customerId, "Test Client", "test@test.com", address);
         when(customerGateway.getCustomerById(customerId)).thenReturn(customer);
 
         // Simulação de um produto válido retornado pelo ProductGateway

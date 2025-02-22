@@ -35,13 +35,13 @@ class AddItemToOrderUseCaseTest {
     private Order order;
     private OrderItem orderItem;
     private UUID orderId;
-    private UUID productId;
+    private Long productId;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         orderId = UUID.randomUUID();
-        productId = UUID.randomUUID();
+        productId = 1L;
         order = new Order();
         order.setId(orderId);
         orderItem = new OrderItem();

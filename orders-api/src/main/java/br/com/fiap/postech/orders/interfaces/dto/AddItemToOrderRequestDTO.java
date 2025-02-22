@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public record AddItemToOrderRequestDTO(
-        @NotNull(message = "O ID do produto não pode ser nulo.") UUID productId,
+        @NotNull(message = "O ID do produto não pode ser nulo.") Long productId,
         @NotNull(message = "A quantidade não pode ser nula.")
         @Min(value = 1, message = "A quantidade deve ser maior que zero.") Integer quantity,
         @NotNull(message = "O valor total do item não pode ser nulo.") BigDecimal unitPrice

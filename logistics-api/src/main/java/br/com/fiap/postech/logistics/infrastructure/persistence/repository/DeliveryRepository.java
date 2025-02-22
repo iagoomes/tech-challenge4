@@ -13,5 +13,5 @@ public interface DeliveryRepository extends JpaRepository<DeliveryEntity, UUID> 
 
     Optional<DeliveryEntity> findByOrderId(UUID orderId);
 
-    List<DeliveryEntity> findByAddressPostalCode(String zip);
+    List<DeliveryEntity> findByAddressZipCode(String zip);
 }

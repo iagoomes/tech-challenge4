@@ -6,14 +6,14 @@ import java.util.UUID;
 
 public class OrderCreatedEvent {
     private UUID orderId;
-    private UUID customerId;
+    private Long customerId;
     private Address deliveryAddress;
     //updateTime
 
     public OrderCreatedEvent() {
     }
 
-    public OrderCreatedEvent(UUID orderId, UUID customerId, Address address) {
+    public OrderCreatedEvent(UUID orderId, Long customerId, Address address) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.deliveryAddress = address;
@@ -27,11 +27,11 @@ public class OrderCreatedEvent {
         this.orderId = orderId;
     }
 
-    public UUID getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 

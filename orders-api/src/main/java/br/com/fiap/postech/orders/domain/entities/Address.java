@@ -1,59 +1,60 @@
 package br.com.fiap.postech.orders.domain.entities;
 
 public class Address {
-    private String street;
-    private String number;
-    private String complement;
-    private String district;
+
+    private String zipCode;
+    private String name;
+    private String addressNumber;
+    private String neighborhood;
     private String city;
     private String state;
-    private String country;
-    private String postalCode;
+    private String complement;
 
+    // Parameterized constructor
+    public Address(String zipCode, String name, String addressNumber, String neighborhood, String city, String state, String complement) {
+        this.zipCode = zipCode;
+        this.name = name;
+        this.addressNumber = addressNumber;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.complement = complement;
+    }
+
+    // Default constructor
     public Address() {
     }
 
-    public Address(String street, String number, String complement, String district, String city, String state, String country, String postalCode) {
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postalCode = postalCode;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public String getStreet() {
-        return street;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public String getName() {
+        return name;
     }
 
-    public String getNumber() {
-        return number;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public String getAddressNumber() {
+        return addressNumber;
     }
 
-    public String getComplement() {
-        return complement;
+    public void setAddressNumber(String addressNumber) {
+        this.addressNumber = addressNumber;
     }
 
-    public void setComplement(String complement) {
-        this.complement = complement;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getCity() {
@@ -72,19 +73,24 @@ public class Address {
         this.state = state;
     }
 
-    public String getCountry() {
-        return country;
+    public String getComplement() {
+        return complement;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    @Override
+    public String toString() {
+        return "Address{" +
+                "zipCode='" + zipCode + '\'' +
+                ", name='" + name + '\'' +
+                ", addressNumber='" + addressNumber + '\'' +
+                ", neighborhood='" + neighborhood + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", complement='" + complement + '\'' +
+                '}';
     }
 }

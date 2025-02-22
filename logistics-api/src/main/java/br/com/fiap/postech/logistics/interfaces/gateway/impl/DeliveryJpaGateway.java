@@ -35,6 +35,10 @@ public class DeliveryJpaGateway implements DeliveryGateway {
         return repository.findByOrderId(orderId).map(mapper::toDomain);
     }
 
+    public List<Delivery> findAll() {
+        return repository.findAll().stream().map(mapper::toDomain).toList();
+    }
+
     public Optional<Delivery> findById(UUID id) {
         return repository.findById(id).map(mapper::toDomain);
     }
@@ -47,7 +51,7 @@ public class DeliveryJpaGateway implements DeliveryGateway {
         log.info("Class={}, Method={}, Message={}", "DeliveryJpaGateway", "save", "Delivery saved successfully with ID: " + id);
     }
 
-    public List<DeliveryEntity> findByAddressPostalCode(String zip) {
-        return repository.findByAddressPostalCode(zip);
+    public List<DeliveryEntity> findByAddressZipCode(String zip) {
+        return repository.findByAddressZipCode(zip);
     }
 }

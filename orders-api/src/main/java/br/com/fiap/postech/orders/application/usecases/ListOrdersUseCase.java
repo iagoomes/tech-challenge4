@@ -23,7 +23,7 @@ public class ListOrdersUseCase {
         }
 
         @Transactional
-        public List<Order> execute(UUID customerId, OrderStatus status) {
+        public List<Order> execute(Long customerId, OrderStatus status) {
             if (customerId != null && status != null) {
                 return orderRepositoryGateway.findByCustomerIdAndStatus(customerId, status);
             } else if (customerId != null) {

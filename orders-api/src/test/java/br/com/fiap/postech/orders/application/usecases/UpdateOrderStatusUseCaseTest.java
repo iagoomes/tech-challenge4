@@ -37,6 +37,10 @@ class UpdateOrderStatusUseCaseTest {
     @InjectMocks
     private UpdateOrderStatusUseCase updateOrderStatusUseCase;
 
+    private static final Long customerId = 1L;
+    private static final Long productId = 1L;
+    private static final Address address = new Address("12345", "Main St", "100", "Downtown", "Metropolis", "NY", "Apt 1");
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -45,8 +49,6 @@ class UpdateOrderStatusUseCaseTest {
     @Test
     void testUpdateStatusFromOpenToPaid() {
         // Criação de IDs aleatórios para simular um cliente e um produto
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -55,16 +57,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -83,8 +76,6 @@ class UpdateOrderStatusUseCaseTest {
     @Test
     void testUpdateStatusFromPaidToProcessing() {
         // Criação de IDs aleatórios para simular um cliente e um produto
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -93,16 +84,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -120,8 +102,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromProcessingToShipped() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -130,16 +110,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -158,8 +129,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromShippedToDelivered() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -168,16 +137,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -195,8 +155,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromDeliveredToReturned() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -205,16 +163,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -229,8 +178,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromOpenToCanceled() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -239,16 +186,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -266,8 +204,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromCanceledToOpen() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -276,16 +212,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -300,8 +227,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusWithSameStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -310,16 +235,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -337,8 +253,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromDeliveredToShippedThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -347,16 +261,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -374,8 +279,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromReturnedThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -384,16 +287,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -411,8 +305,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromOpenToInvalidStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -421,16 +313,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -448,8 +331,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromPaidToInvalidStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -458,16 +339,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -485,8 +357,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromProcessingToInvalidStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -495,16 +365,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -522,8 +383,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusFromShippedToInvalidStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -532,16 +391,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
@@ -559,8 +409,6 @@ class UpdateOrderStatusUseCaseTest {
 
     @Test
     void testUpdateStatusWithInvalidStatusThrowsException() {
-        UUID customerId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
 
         // Criação do pedido real
         Order order = new Order();
@@ -569,16 +417,7 @@ class UpdateOrderStatusUseCaseTest {
         // Criação de um item de pedido real
         OrderItem item = new OrderItem(UUID.randomUUID(), productId, 2, BigDecimal.valueOf(50.0), order);
         order.addItem(item);
-        order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
-        );
+        order.setDeliveryAddress(address);
         order.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());

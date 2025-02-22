@@ -52,15 +52,20 @@ public class DeliveryController {
         return ResponseEntity.created(URI.create("/deliveries/" + response.id())).body(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<DeliveryResponseDTO> findById(@PathVariable UUID id) {
         var delivery = getDeliveryByIdUseCase.execute(id);
         return ResponseEntity.ok(deliveryRestAdapter.toResponse(delivery));
     }
 
-    @GetMapping
-    public ResponseEntity<List<DeliveryResponseDTO>> findPendingDeliveriesByZip(
-            @RequestParam(name = "zip") String zip) {
+    @GetMapping()
+    public ResponseEntity<List<DeliveryResponseDTO>> findAll() {
+        var delivery = getDeliveryByIdUseCase.findAll();
+        return ResponseEntity.ok(delivery.stream().map(deliveryRestAdapter::toResponse).toList());
+    }
+
+    @GetMapping("/zip/{zip}")
+    public ResponseEntity<List<DeliveryResponseDTO>> findPendingDeliveriesByZip(@PathVariable String zip) {
 
         List<Delivery> deliveries = findDeliveriesByZipUseCase.execute(zip);
 

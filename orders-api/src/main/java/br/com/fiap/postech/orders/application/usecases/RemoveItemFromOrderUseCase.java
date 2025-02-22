@@ -28,7 +28,7 @@ public class RemoveItemFromOrderUseCase {
     }
 
     @Transactional
-    public Order execute(UUID orderId, UUID productId) {
+    public Order execute(UUID orderId, Long productId) {
         // Buscar o pedido
         Order order = orderRepositoryGateway.findById(orderId);
         if (order == null) {

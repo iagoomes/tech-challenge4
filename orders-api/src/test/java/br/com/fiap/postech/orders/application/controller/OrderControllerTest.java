@@ -6,7 +6,7 @@ import br.com.fiap.postech.orders.domain.entities.Order;
 import br.com.fiap.postech.orders.domain.entities.OrderItem;
 import br.com.fiap.postech.orders.domain.enums.OrderStatus;
 import br.com.fiap.postech.orders.domain.enums.PaymentMethod;
-import br.com.fiap.postech.orders.infrastructure.messaging.KafkaProducerService;
+import br.com.fiap.postech.orders.infrastructure.messaging.producer.KafkaProducerService;
 import br.com.fiap.postech.orders.interfaces.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,6 +64,7 @@ class OrderControllerTest {
     @Mock
     private KafkaProducerService kafkaProducerService;
 
+    private static final Address address = new Address("12345", "New St", "100", "New Neighborhood", "New City", "New State", "New Complement");
 
     @BeforeEach
     void setUp() {
@@ -73,9 +75,9 @@ class OrderControllerTest {
     void shouldCreateOrderSuccessfully() throws Exception {
         // Arrange
         UUID orderId = UUID.randomUUID();
-        UUID customerId = UUID.randomUUID();
+        Long customerId = 1L;
         UUID itemId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+        Long productId = 1L;
 
         OrderItemRequestDTO orderItemRequestDTO = new OrderItemRequestDTO(
                 itemId,
@@ -87,14 +89,7 @@ class OrderControllerTest {
         CreateOrderRequestDTO requestDTO = new CreateOrderRequestDTO(
                 customerId,
                 List.of(orderItemRequestDTO),
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678"),
+                address,
                 PaymentMethod.CREDIT_CARD
         );
 
@@ -137,21 +132,14 @@ class OrderControllerTest {
         // Arrange
         UUID orderId = UUID.randomUUID();
         Order order = new Order();
-        OrderItem newItem = new OrderItem(UUID.randomUUID(), UUID.randomUUID(), 2, BigDecimal.valueOf(100.0), order);
+        OrderItem newItem = new OrderItem(UUID.randomUUID(), new Random().nextLong(), 2, BigDecimal.valueOf(100.0), order);
         order.setStatus(OrderStatus.OPEN);
         order.addItem(newItem);
         order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
+                address
         );
 
-        AddItemToOrderRequestDTO request = new AddItemToOrderRequestDTO(UUID.randomUUID(), 2, BigDecimal.valueOf(100.0));
+        AddItemToOrderRequestDTO request = new AddItemToOrderRequestDTO(1L, 2, BigDecimal.valueOf(100.0));
         when(addItemToOrderUseCase.execute(any(UUID.class), any(OrderItem.class))).thenReturn(order);
 
         // Act
@@ -163,23 +151,16 @@ class OrderControllerTest {
     }
 
     @Test
-    void testRemoveItemFromOrder_ShouldReturnOrderResponseDTO() {
+    void testRemoveItemFromOrderShouldReturnOrderResponseDTO() {
         // Arrange
         UUID orderId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+        Long productId = 1L;
         Order order = new Order();
-        OrderItem newItem = new OrderItem(UUID.randomUUID(), UUID.randomUUID(), 2, BigDecimal.valueOf(100.0), order);
+        OrderItem newItem = new OrderItem(UUID.randomUUID(), new Random().nextLong(), 2, BigDecimal.valueOf(100.0), order);
         order.setStatus(OrderStatus.OPEN);
         order.addItem(newItem);
         order.setDeliveryAddress(
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678")
+                address
         );
         when(removeItemFromOrderUseCase.execute(orderId, productId)).thenReturn(order);
 
@@ -200,14 +181,7 @@ class OrderControllerTest {
                 OrderStatus.SHIPPED,
                 orderId,
                 List.of(),
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678"),
+                address,
                 null,
                 null,
                 null);
@@ -225,19 +199,12 @@ class OrderControllerTest {
     @Test
     void testListOrders_ShouldReturnOrderList() {
         // Arrange
-        UUID customerId = UUID.randomUUID();
+        Long customerId = 1L;
         Order order = new Order(
                 OrderStatus.OPEN,
                 customerId,
                 List.of(),
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678"),
+                address,
                 null,
                 null,
                 null);
@@ -261,14 +228,7 @@ class OrderControllerTest {
                 OrderStatus.OPEN,
                 orderId,
                 List.of(),
-                new Address("Rua teste",
-                        "123",
-                        "Teste",
-                        "Bairro teste",
-                        "Cidade Teste",
-                        "Estado Teste",
-                        "Pais Teste",
-                        "12345-678"),
+                address,
                 null,
                 null,
                 null);

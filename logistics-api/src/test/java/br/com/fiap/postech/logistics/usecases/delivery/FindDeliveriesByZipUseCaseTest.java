@@ -40,7 +40,7 @@ class FindDeliveriesByZipUseCaseTest {
 
         List<DeliveryEntity> entities = List.of(entity);
 
-        when(deliveryGateway.findByAddressPostalCode(TEST_ZIP_CODE))
+        when(deliveryGateway.findByAddressZipCode(TEST_ZIP_CODE))
                 .thenReturn(entities);
         when(mapper.toDomain(entity)).thenReturn(delivery);
 
@@ -51,14 +51,14 @@ class FindDeliveriesByZipUseCaseTest {
         assertEquals(1, result.size());
         assertEquals(delivery, result.get(0));
 
-        verify(deliveryGateway, times(1)).findByAddressPostalCode(TEST_ZIP_CODE);
+        verify(deliveryGateway, times(1)).findByAddressZipCode(TEST_ZIP_CODE);
         verify(mapper, times(1)).toDomain(entity);
     }
 
     @Test
     @DisplayName("Should return an empty list when there are no pending deliveries for the given ZIP code")
     void shouldReturnEmptyListWhenNoPendingDeliveriesExistForZip() {
-        when(deliveryGateway.findByAddressPostalCode(TEST_ZIP_CODE))
+        when(deliveryGateway.findByAddressZipCode(TEST_ZIP_CODE))
                 .thenReturn(Collections.emptyList());
 
         List<Delivery> result = findDeliveriesByZipUseCase.execute(TEST_ZIP_CODE);
@@ -66,7 +66,7 @@ class FindDeliveriesByZipUseCaseTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
 
-        verify(deliveryGateway, times(1)).findByAddressPostalCode(TEST_ZIP_CODE);
+        verify(deliveryGateway, times(1)).findByAddressZipCode(TEST_ZIP_CODE);
         verifyNoInteractions(mapper);
     }
 }

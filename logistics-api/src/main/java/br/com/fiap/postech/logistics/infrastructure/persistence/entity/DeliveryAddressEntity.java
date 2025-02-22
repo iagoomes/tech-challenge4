@@ -21,13 +21,13 @@ public class DeliveryAddressEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private String street;
+    private String zipCode;
 
     @Column(nullable = false)
-    private String number;
+    private String name;
 
-    private String complement;
-    private String district;
+    private String addressNumber;
+    private String neighborhood;
 
     @Column(nullable = false)
     private String city;
@@ -36,30 +36,25 @@ public class DeliveryAddressEntity {
     private String state;
 
     @Column(nullable = false)
-    private String country;
-
-    @Column(nullable = false)
-    private String postalCode;
+    private String complement;
 
     @Version
     private Long version;
 
-    public DeliveryAddressEntity(UUID id, String street, String number, String complement, String district,
-                                 String city, String state, String country, String postalCode) {
+    public DeliveryAddressEntity(UUID id, String zipCode, String name, String addressNumber, String neighborhood,
+                                 String city, String state, String complement) {
         this.id = id;
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
+        this.zipCode = zipCode;
+        this.name = name;
+        this.addressNumber = addressNumber;
+        this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
-        this.country = country;
-        this.postalCode = postalCode;
+        this.complement = complement;
     }
 
-    public static DeliveryAddressEntity create(UUID id, String street, String number, String complement,
-                           String district, String city, String state,
-                           String country, String postalCode){
-        return new DeliveryAddressEntity(id, street, number, complement, district, city, state, country, postalCode);
+    public static DeliveryAddressEntity create(UUID id, String zipCode, String name, String addressNumber,
+                                               String neighborhood, String city, String state, String complement){
+        return new DeliveryAddressEntity(id, zipCode, name, addressNumber, neighborhood, city, state, complement);
     }
 }

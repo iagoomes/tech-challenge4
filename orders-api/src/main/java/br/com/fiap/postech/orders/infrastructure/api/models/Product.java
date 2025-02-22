@@ -1,10 +1,10 @@
 package br.com.fiap.postech.orders.infrastructure.api.models;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class Product {
-    private UUID id;
+
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;
@@ -13,7 +13,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(UUID id, String name, String description, BigDecimal price, int stockQuantity) {
+    public Product(Long id, String name, String description, BigDecimal price, int stockQuantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,11 +21,11 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,5 +59,9 @@ public class Product {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public Boolean isInStock(int quantity) {
+        return stockQuantity >= quantity;
     }
 }

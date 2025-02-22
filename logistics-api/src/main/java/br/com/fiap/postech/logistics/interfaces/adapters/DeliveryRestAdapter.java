@@ -35,12 +35,12 @@ public class DeliveryRestAdapter {
     }
 
     public Delivery toDomain(DeliveryRequestDTO requestDTO) {
-            UUID orderId = parseUUID(requestDTO.orderId(), "orderId");
-            UUID customerId = parseUUID(requestDTO.customerId(), "customerId");
-            DeliveryAddress address = deliveryAddressFactory.createFromDTO(requestDTO.address());
-            Courier courier = requestDTO.courier() != null ? courierFactory.createFromDTO(requestDTO.courier()) : null;
+        UUID orderId = parseUUID(requestDTO.orderId(), "orderId");
+        Long customerId = Long.parseLong(requestDTO.customerId());
+        DeliveryAddress address = deliveryAddressFactory.createFromDTO(requestDTO.address());
+        Courier courier = requestDTO.courier() != null ? courierFactory.createFromDTO(requestDTO.courier()) : null;
 
-            return deliveryFactory.create(orderId, customerId, address, courier);
+        return deliveryFactory.create(orderId, customerId, address, courier);
     }
 
     private UUID parseUUID(String uuidStr, String fieldName) {

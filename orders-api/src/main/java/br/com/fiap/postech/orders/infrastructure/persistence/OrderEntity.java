@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,31 +23,40 @@ import java.util.UUID;
 @Table(name = "TB_ORDERS")
 public class OrderEntity {
 
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Setter
     @Column(nullable = false)
-    private UUID customerId;
+    private Long customerId;
 
+    @Setter
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private List<OrderItemEntity> items = new ArrayList<>();
 
+    @Setter
     @Embedded
     private Address deliveryAddress;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
+    @Setter
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
+    @Setter
     private LocalDateTime estimatedDeliveryDate;
+    @Setter
     private LocalDateTime createdAt;
+    @Setter
     private LocalDateTime updatedAt;
 
     @PrePersist
@@ -68,7 +78,7 @@ public class OrderEntity {
             PaymentMethod paymentMethod,
             Address deliveryAddress,
             List<OrderItemEntity> items,
-            UUID customerId,
+            Long customerId,
             OrderStatus status
     ) {
         this.id = id;
@@ -82,42 +92,6 @@ public class OrderEntity {
         this.status = status;
 
         calculateTotalAmount();
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
-    }
-
-    public void setItems(List<OrderItemEntity> items) {
-        this.items = items;
-    }
-
-    public void setDeliveryAddress(Address deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public void addItem(OrderItemEntity item) {
@@ -141,9 +115,11 @@ public class OrderEntity {
     }
 
     private void calculateTotalAmount() {
-        this.totalAmount = items.stream()
-                .map(item -> item.getTotalPrice())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        if (!items.isEmpty()) {
+            this.totalAmount = items.stream()
+                    .map(OrderItemEntity::getTotalPrice)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
     }
 
 

@@ -1,12 +1,12 @@
 package br.com.fiap.postech.logistics.domain.events;
 
 public record AddressEvent(
-        String street,
-        String number,
-        String complement,
-        String district,
+        String zipCode,
+        String name,
+        String addressNumber,
+        String neighborhood,
         String city,
         String state,
-        String country,
-        String postalCode
-) {}
+        String complement
+) {
+}

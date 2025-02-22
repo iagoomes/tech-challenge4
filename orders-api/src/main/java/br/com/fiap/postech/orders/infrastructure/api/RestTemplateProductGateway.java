@@ -1,11 +1,12 @@
 package br.com.fiap.postech.orders.infrastructure.api;
 
 import br.com.fiap.postech.orders.infrastructure.api.models.Product;
+import br.com.fiap.postech.orders.interfaces.dto.QuantityItemResquestDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
+import java.util.List;
 
 @Component
 public class RestTemplateProductGateway implements ProductGateway {
@@ -19,15 +20,21 @@ public class RestTemplateProductGateway implements ProductGateway {
     }
 
     @Override
-    public Product getProductById(UUID productId) {
+    public Product getProductById(Long productId) {
         String url = productServiceUrl + "/" + productId;
         return restTemplate.getForObject(url, Product.class); // Faz uma requisição GET
     }
 
     @Override
-    public boolean isInStock(UUID productId, int quantity) {
-        String url = productServiceUrl + "/" + productId + "/stock?quantity=" + quantity;
-        Boolean response = restTemplate.getForObject(url, Boolean.class);
-        return Boolean.TRUE.equals(response); // Retorna false se for null
+    public boolean isInStock(Long productId, int quantity) {
+        String url = productServiceUrl + "/" + productId;
+        Product response = restTemplate.getForObject(url, Product.class); // Faz uma requisição GET
+        return Boolean.TRUE.equals(response != null && response.isInStock(quantity)); // Retorna false se for null
+    }
+
+    @Override
+    public void subtractStocks(final List<QuantityItemResquestDTO> quantityItemRequestDTO) {
+        String url = productServiceUrl + "/";
+        restTemplate.patchForObject(url, quantityItemRequestDTO, Void.class);
     }
 }

@@ -4,12 +4,11 @@ import java.util.UUID;
 
 public record DeliveryAddressDTO(
         UUID id,
-        String street,
-        String number,
-        String complement,
-        String district,
+        String zipCode,
+        String name,
+        String addressNumber,
+        String neighborhood,
         String city,
         String state,
-        String country,
-        String postalCode
+        String complement
 ) {}

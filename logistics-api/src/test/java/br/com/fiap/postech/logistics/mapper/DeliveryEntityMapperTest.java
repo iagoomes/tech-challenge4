@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.mapper;
+package br.com.fiap.postech.logistics.mapper;
 
 import br.com.fiap.postech.logistics.domain.factory.DeliveryFactory;
 import br.com.fiap.postech.logistics.domain.model.*;
@@ -36,10 +36,10 @@ class DeliveryEntityMapperTest {
     void shouldMapDomainToEntityAndBack() {
         UUID id = UUID.randomUUID();
         UUID orderId = UUID.randomUUID();
-        UUID customerId = UUID.randomUUID();
+        final Long customerId = 1L;
         Courier courier = new Courier(UUID.randomUUID(), "John Doe", "1234567890", true);
         DeliveryStatus status = DeliveryStatus.IN_TRANSIT;
-        DeliveryAddress address = new DeliveryAddress(UUID.randomUUID(), "123 Street", "City", "State", "12345", "Country", "Additional Info", "", "");
+        DeliveryAddress address = new DeliveryAddress(UUID.randomUUID(), "12345", "New St", "100", "New Neighborhood", "New City", "New State", "New Complement");
         LocalDateTime createdAt = LocalDateTime.now();
         LocalDateTime deliveredAt = LocalDateTime.now().plusDays(1);
         Delivery domain = new Delivery(id, orderId, customerId, courier, status, address, createdAt, deliveredAt);

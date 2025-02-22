@@ -13,7 +13,7 @@ import java.util.UUID;
 public record OrderResponseDTO(
         UUID id,
         OrderStatus status,
-        UUID customerId,
+        Long customerId,
         List<OrderItemResponseDTO> items,
         Address deliveryAddress,
         double totalAmount,

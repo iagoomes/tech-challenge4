@@ -23,7 +23,7 @@ class ListOrdersUseCaseTest {
     @Mock
     private OrderRepositoryGatewayImpl orderRepositoryGateway;
 
-    private UUID customerId;
+    private Long customerId;
     private OrderStatus status;
     private Order mockOrder;
 
@@ -31,7 +31,7 @@ class ListOrdersUseCaseTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        customerId = UUID.randomUUID();
+        customerId = 1L;
         status = OrderStatus.OPEN;
         mockOrder = new Order();
         mockOrder.setId(UUID.randomUUID());

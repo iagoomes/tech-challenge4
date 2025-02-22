@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public record OrderItemRequestDTO(
         @Validated UUID id,
-        @Validated UUID productId,
+        @Validated Long productId,
         @Validated int quantity,
         @Validated BigDecimal unitPrice
 ) {

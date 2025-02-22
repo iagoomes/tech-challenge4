@@ -21,9 +21,11 @@ public class OrderRepositoryGatewayImpl implements OrderRepositoryGateway {
 
     @Override
     public List<Order> findAll() {
-        return List.of();
+        List<OrderEntity> orderEntityList = orderRepository.findAll();
+        return orderEntityList.stream()
+                .map(orderMapper::toModel)
+                .toList();
     }
-
     @Override
     public Order findById(UUID id) {
         OrderEntity entity = orderRepository
@@ -52,14 +54,14 @@ public class OrderRepositoryGatewayImpl implements OrderRepositoryGateway {
         return orderMapper.toModel(entity);
     }
 
-    public List<Order> findByCustomerIdAndStatus(UUID customerId, OrderStatus status) {
+    public List<Order> findByCustomerIdAndStatus(Long customerId, OrderStatus status) {
         List<OrderEntity> orderEntityList = orderRepository.findByCustomerIdAndStatus(customerId, status);
         return orderEntityList.stream()
                 .map(orderMapper::toModel)
                 .toList();
     }
 
-    public List<Order> findByCustomerId(UUID customerId) {
+    public List<Order> findByCustomerId(Long customerId) {
         List<OrderEntity> orderEntityList = orderRepository.findByCustomerId(customerId);
         return orderEntityList.stream()
                 .map(orderMapper::toModel)

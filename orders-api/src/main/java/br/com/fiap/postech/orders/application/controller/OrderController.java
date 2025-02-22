@@ -4,13 +4,13 @@ import br.com.fiap.postech.orders.application.usecases.*;
 import br.com.fiap.postech.orders.domain.entities.Order;
 import br.com.fiap.postech.orders.domain.entities.OrderItem;
 import br.com.fiap.postech.orders.domain.enums.OrderStatus;
-import br.com.fiap.postech.orders.infrastructure.messaging.KafkaProducerService;
-import br.com.fiap.postech.orders.infrastructure.messaging.OrderCreatedEvent;
+import br.com.fiap.postech.orders.infrastructure.messaging.producer.KafkaProducerService;
 import br.com.fiap.postech.orders.infrastructure.messaging.OrderDeliveredEvent;
-import br.com.fiap.postech.orders.interfaces.dto.*;
+import br.com.fiap.postech.orders.interfaces.dto.AddItemToOrderRequestDTO;
+import br.com.fiap.postech.orders.interfaces.dto.CreateOrderRequestDTO;
+import br.com.fiap.postech.orders.interfaces.dto.OrderResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -46,14 +46,12 @@ public class OrderController {
     }
 
     @Operation(summary = "Cria um novo pedido")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Pedido criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida")
-    })
+    @ApiResponse(responseCode = "200", description = "Pedido criado com sucesso")
+    @ApiResponse(responseCode = "400", description = "Requisição inválida")
     @PostMapping
     public ResponseEntity<OrderResponseDTO> createOrder(@Valid @RequestBody CreateOrderRequestDTO request) {
+        log.error("Creating order for customer {}", request.toString());
         Order order = createOrderUseCase.execute(request.toDomain());
-        kafkaProducerService.sendOrderCreatedEvent(new OrderCreatedEvent(order.getId(), order.getCustomerId(), order.getDeliveryAddress()));
         return ResponseEntity.ok(OrderResponseDTO.fromDomain(order));
     }
 
@@ -76,7 +74,7 @@ public class OrderController {
     @Operation(summary = "Remove um item do pedido")
     @DeleteMapping("/{orderId}/items/{productId}")
     public ResponseEntity<OrderResponseDTO> removeItemFromOrder(@PathVariable UUID orderId,
-                                                                @PathVariable UUID productId) {
+                                                                @PathVariable Long productId) {
         Order updatedOrder = removeItemFromOrderUseCase.execute(orderId, productId);
         return ResponseEntity.ok(OrderResponseDTO.fromDomain(updatedOrder));
     }
@@ -94,7 +92,7 @@ public class OrderController {
 
     @Operation(summary = "Lista todos os pedidos")
     @GetMapping
-    public ResponseEntity<List<OrderResponseDTO>> listOrders(@RequestParam(required = false) UUID customerId,
+    public ResponseEntity<List<OrderResponseDTO>> listOrders(@RequestParam(required = false) Long customerId,
                                                              @RequestParam(required = false) OrderStatus status) {
         List<Order> orders = listOrdersUseCase.execute(customerId, status);
         List<OrderResponseDTO> response = orders.stream()

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
-    List<OrderEntity> findByCustomerIdAndStatus(UUID customerId, OrderStatus status);
-    List<OrderEntity> findByCustomerId(UUID customerId);
+    List<OrderEntity> findByCustomerIdAndStatus(Long customerId, OrderStatus status);
+    List<OrderEntity> findByCustomerId(Long customerId);
     List<OrderEntity> findByStatus(OrderStatus status);
 }

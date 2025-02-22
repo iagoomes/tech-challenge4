@@ -18,11 +18,11 @@ public class KafkaProducerService {
 
     public void sendOrderCreatedEvent(OrderCreatedEvent event) {
         streamBridge.send("orders.created", event);
-        log.info("✅ OrderCreatedEvent enviado para Kafka: {}", event);
+        log.info("✅ [logistics-api] -> OrderCreatedEvent enviado para Kafka: {}", event);
     }
 
     public void sendOrderDeliveredEvent(OrderDeliveredDTO event) {
         streamBridge.send("orders.delivered", event);
-        log.info("✅ OrderDeliveredEvent enviado para Kafka: {}", event);
+        log.info("✅ [logistics-api] -> OrderDeliveredEvent enviado para Kafka: {}", event);
     }
 }

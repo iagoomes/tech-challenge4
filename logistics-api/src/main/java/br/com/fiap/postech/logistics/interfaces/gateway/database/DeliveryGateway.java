@@ -12,6 +12,6 @@ public interface DeliveryGateway {
     Optional<Delivery> findByOrderId(UUID orderId);
     Optional<Delivery> findById(UUID id);
     void deleteById(UUID id);
-    List<DeliveryEntity> findByAddressPostalCode(String zip);
-
+    List<DeliveryEntity> findByAddressZipCode(String zip);
+    List<Delivery> findAll();
 }

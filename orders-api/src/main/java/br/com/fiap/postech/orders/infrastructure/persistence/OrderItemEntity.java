@@ -14,22 +14,29 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_ORDER_ITEMS")
 public class OrderItemEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @Column(nullable = false)
-    private UUID productId;
+    private Long productId;
+
     @Column(nullable = false)
     private int quantity;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private OrderEntity order;
 
-    public OrderItemEntity(UUID id, UUID productId, int quantity, BigDecimal unitPrice, OrderEntity order) {
+    public OrderItemEntity(UUID id, Long productId, int quantity, BigDecimal unitPrice, OrderEntity order) {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
@@ -47,11 +54,11 @@ public class OrderItemEntity {
         this.id = id;
     }
 
-    public UUID getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(UUID productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

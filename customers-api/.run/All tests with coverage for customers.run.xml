@@ -3,7 +3,7 @@
     <module name="customermanagement" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="br.com.fiap.postech.customermanagement.infrastructure.entity.CustomerEntity_" />
+        <option name="PATTERN" value="br.com.fiap.postech.customers.infrastructure.entity.CustomerEntity_" />
         <option name="ENABLED" value="true" />
         <option name="INCLUDE" value="false" />
       </pattern>

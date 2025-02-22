@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class OrderItem {
     private UUID id;
-    private UUID productId;
+    private Long productId;
     private int quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
@@ -14,7 +14,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(UUID id, UUID productId, int quantity, BigDecimal unitPrice, Order order) {
+    public OrderItem(UUID id, Long productId, int quantity, BigDecimal unitPrice, Order order) {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
@@ -32,11 +32,11 @@ public class OrderItem {
         this.id = id;
     }
 
-    public UUID getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(UUID productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -71,5 +71,17 @@ public class OrderItem {
 
     public Order getOrder() {
         return order;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", totalPrice=" + totalPrice +
+                ", order=" + order +
+                '}';
     }
 }

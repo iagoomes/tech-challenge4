@@ -2,6 +2,8 @@ package br.com.fiap.postech.orders.domain.entities;
 
 import br.com.fiap.postech.orders.domain.enums.OrderStatus;
 import br.com.fiap.postech.orders.domain.enums.PaymentMethod;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,23 +11,93 @@ import java.util.*;
 
 public class Order {
 
+    @Getter
+    @Setter
     private UUID id;
 
+    @Setter
+    @Getter
     private OrderStatus status;
 
-    private UUID customerId;
+    @Setter
+    @Getter
+    private Long customerId;
 
+    @Setter
     private List<OrderItem> items = new ArrayList<>();
 
+    @Setter
+    @Getter
     private Address deliveryAddress;
 
+    @Getter
     private double totalAmount;
 
+    @Setter
+    @Getter
     private PaymentMethod paymentMethod;
 
+    @Setter
+    @Getter
     private LocalDateTime estimatedDeliveryDate;
+    @Getter
+    @Setter
     private LocalDateTime createdAt;
+    @Getter
+    @Setter
     private LocalDateTime updatedAt;
+
+    public Order(UUID id, OrderStatus status, Long customerId, List<OrderItem> items, Address deliveryAddress, double totalAmount, PaymentMethod paymentMethod, LocalDateTime estimatedDeliveryDate) {
+        this.id = id;
+        this.status = status;
+        this.customerId = customerId;
+        this.items = items;
+        this.deliveryAddress = deliveryAddress;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
+    }
+
+    public Order(OrderStatus orderStatus, UUID orderId, List<OrderItem> items, Address deliveryAddress, PaymentMethod paymentMethod, LocalDateTime estimatedDeliveryDate, LocalDateTime createdAt) {
+        this.id = orderId;
+        this.status = orderStatus;
+        this.items = items;
+        this.deliveryAddress = deliveryAddress;
+        this.paymentMethod = paymentMethod;
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
+        this.createdAt = createdAt;
+    }
+
+    public Order(
+            OrderStatus status,
+            Long customerId,
+            List<OrderItem> items,
+            Address deliveryAddress,
+            PaymentMethod paymentMethod,
+            LocalDateTime estimatedDeliveryDate,
+            LocalDateTime createdAt
+    ) {
+        this.status = status;
+        this.customerId = customerId;
+        this.items = items;
+        this.deliveryAddress = deliveryAddress;
+        this.paymentMethod = paymentMethod;
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
+        this.createdAt = createdAt;
+    }
+
+    public Order(OrderStatus status, Long customerId, Address deliveryAddress, PaymentMethod paymentMethod,
+                 LocalDateTime estimatedDeliveryDate, LocalDateTime createdAt) {
+        this.status = status;
+        this.customerId = customerId;
+        this.deliveryAddress = deliveryAddress;
+        this.paymentMethod = paymentMethod;
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
+        this.createdAt = createdAt;
+    }
+
+    public Order() {
+    }
 
     public void prePersist() {
         createdAt = LocalDateTime.now();
@@ -36,101 +108,8 @@ public class Order {
         updatedAt = LocalDateTime.now();
     }
 
-    public Order() {
-    }
-
-    public Order(
-            OrderStatus status,
-            UUID customerId,
-            List<OrderItem> items,
-            Address deliveryAddress,
-            PaymentMethod paymentMethod,
-            LocalDateTime estimatedDeliveryDate,
-            LocalDateTime createdAt
-            ) {
-        this.status = status;
-        this.customerId = customerId;
-        this.items = items;
-        this.deliveryAddress = deliveryAddress;
-        this.paymentMethod = paymentMethod;
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-        this.createdAt = createdAt;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public UUID getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
-    }
-
     public List<OrderItem> getItems() {
         return Collections.unmodifiableList(items);
-    }
-
-    public void setItems(List<OrderItem> items) {
-        this.items = items;
-    }
-
-    public Address getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(Address deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public LocalDateTime getEstimatedDeliveryDate() {
-        return estimatedDeliveryDate;
-    }
-
-    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public void addItem(OrderItem item) {

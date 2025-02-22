@@ -1,4 +1,4 @@
-package java.br.com.fiap.postech.logistics.controller;
+package br.com.fiap.postech.logistics.controller;
 
 import br.com.fiap.postech.logistics.application.usecases.TrackingUseCase;
 import br.com.fiap.postech.logistics.interfaces.dtos.TrackingRequestDTO;

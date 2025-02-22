@@ -7,12 +7,11 @@ import br.com.fiap.postech.logistics.interfaces.dtos.DeliveryAddressDTO;
 import java.util.UUID;
 
 public interface DeliveryAddressFactory {
-    DeliveryAddress create(UUID id, String street, String number, String complement,
-                           String district, String city, String state,
-                           String country, String postalCode);
+    DeliveryAddress create(UUID id, String zipCode, String name, String addressNumber, String neighborhood,
+                           String city, String state, String complement);
 
     DeliveryAddress createFromEvent(AddressEvent event);
 
     DeliveryAddress createFromDTO(DeliveryAddressDTO dto);
-    }
+}
 

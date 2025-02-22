@@ -1,12 +1,15 @@
 package br.com.fiap.postech.orders.infrastructure.api;
 
 import br.com.fiap.postech.orders.infrastructure.api.models.Customer;
+import br.com.fiap.postech.orders.interfaces.dto.CustomerApiResponseExternalDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
+import java.util.Objects;
 
+@Slf4j
 @Component
 public class RestTemplateCustomerGateway implements CustomerGateway {
 
@@ -19,8 +22,8 @@ public class RestTemplateCustomerGateway implements CustomerGateway {
     }
 
     @Override
-    public Customer getCustomerById(UUID customerId) {
-        String url = customerServiceUrl + "/" + customerId;
-        return restTemplate.getForObject(url, Customer.class);
+    public Customer getCustomerById(Long customerId) {
+        final String url = customerServiceUrl + "/" + customerId.toString();
+        return Objects.requireNonNull(restTemplate.getForObject(url, CustomerApiResponseExternalDTO.class)).toDomain();
     }
 }

@@ -11,36 +11,34 @@ import java.util.UUID;
 @Component
 public class DeliveryAddressFactoryImpl implements DeliveryAddressFactory {
 
-    public DeliveryAddress create(UUID id, String street, String number, String complement,
-                                  String district, String city, String state,
-                                  String country, String postalCode) {
-        return new DeliveryAddress(id, street, number, complement, district, city, state, country, postalCode);
+    public DeliveryAddress create(UUID id, String zipCode, String name, String addressNumber, String neighborhood,
+                                  String city, String state, String complement) {
+        return new DeliveryAddress(id, zipCode, name, addressNumber, neighborhood, city, state, complement);
     }
 
     public DeliveryAddress createFromEvent(AddressEvent event) {
         return new DeliveryAddress(
                 UUID.randomUUID(),
-                event.street(),
-                event.number(),
-                event.complement(),
-                event.district(),
+                event.zipCode(),
+                event.name(),
+                event.addressNumber(),
+                event.neighborhood(),
                 event.city(),
                 event.state(),
-                event.country(),
-                event.postalCode()
+                event.complement()
         );
     }
+
     public DeliveryAddress createFromDTO(DeliveryAddressDTO dto) {
         return new DeliveryAddress(
                 UUID.randomUUID(),
-                dto.street(),
-                dto.number(),
-                dto.complement(),
-                dto.district(),
+                dto.zipCode(),
+                dto.name(),
+                dto.addressNumber(),
+                dto.neighborhood(),
                 dto.city(),
                 dto.state(),
-                dto.country(),
-                dto.postalCode()
+                dto.complement()
         );
     }
 }

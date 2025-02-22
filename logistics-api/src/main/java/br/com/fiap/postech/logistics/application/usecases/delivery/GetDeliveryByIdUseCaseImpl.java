@@ -4,6 +4,7 @@ import br.com.fiap.postech.logistics.domain.model.Delivery;
 import br.com.fiap.postech.logistics.interfaces.gateway.database.DeliveryGateway;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,5 +19,9 @@ public class GetDeliveryByIdUseCaseImpl {
     public Delivery execute(UUID deliveryId) {
         return deliveryGateway.findById(deliveryId)
                 .orElseThrow(() -> new IllegalArgumentException("Delivery not found"));
+    }
+
+    public List<Delivery> findAll() {
+        return deliveryGateway.findAll();
     }
 }

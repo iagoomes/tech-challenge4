@@ -4,45 +4,43 @@ import java.util.UUID;
 
 public class DeliveryAddress {
     private final UUID id; // Adiciona o ID
-    private final String street;
-    private final String number;
-    private final String complement;
-    private final String district;
+    private final String zipCode;
+    private final String name;
+    private final String addressNumber;
+    private final String neighborhood;
     private final String city;
     private final String state;
-    private final String country;
-    private final String postalCode;
+    private final String complement;
 
-    public DeliveryAddress(UUID id, String street, String number, String complement, String district, String city, String state, String country, String postalCode) {
+    public DeliveryAddress(UUID id, String zipCode, String name, String addressNumber, String neighborhood, String city, String state, String complement) {
         this.id = id;
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
+        this.zipCode = zipCode;
+        this.name = name;
+        this.addressNumber = addressNumber;
+        this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
-        this.country = country;
-        this.postalCode = postalCode;
+        this.complement = complement;
     }
 
     public UUID getId() {
         return id;
     }
 
-    public String getStreet() {
-        return street;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public String getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
-    public String getComplement() {
-        return complement;
+    public String getAddressNumber() {
+        return addressNumber;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
     public String getCity() {
@@ -53,11 +51,7 @@ public class DeliveryAddress {
         return state;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
+    public String getComplement() {
+        return complement;
     }
 }

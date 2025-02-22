@@ -1,15 +1,16 @@
 package br.com.fiap.postech.orders.interfaces.dto;
 
+import br.com.fiap.postech.orders.domain.entities.OrderItem;
+
 import java.math.BigDecimal;
-import java.util.UUID;
 
 record OrderItemResponseDTO(
-        UUID productId,
+        Long productId,
         int quantity,
         BigDecimal unitPrice,
         BigDecimal totalPrice
 ) {
-    public static OrderItemResponseDTO fromDomain(br.com.fiap.postech.orders.domain.entities.OrderItem item) {
+    public static OrderItemResponseDTO fromDomain(OrderItem item) {
         return new OrderItemResponseDTO(
                 item.getProductId(),
                 item.getQuantity(),
