@@ -53,21 +53,6 @@ Cada microsserviço está hospedado em um repositório separado para facilitar a
 3. Utilize as APIs documentadas para interagir com o sistema.
 
 
-## Documentação das APIs
-A documentação das APIs de cada microsserviço está disponível nos links abaixo:
-
-### Microsserviço de Gerenciamento de Clientes
-- **Swagger:** [http://localhost:8080/customers-api/swagger-ui.html]
-
-### Microsserviço de Catálogo de Produtos
-- **Swagger:** [http://localhost:8081/products-api/swagger-ui.html]
-
-### Microsserviço de Gestão de Pedidos
-- **Swagger:** [http://localhost:8082/orders-api/swagger-ui.html]
-
-### Microsserviço de Logística de Entrega
-- **Swagger:** [http://localhost:8083/logistics-api/swagger-ui.html]
-
 ## Payloads
 
 Para melhor utilização das APIs veja o fluxo ou passo a passo da trajetoria da aplicação.
