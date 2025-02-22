@@ -122,6 +122,7 @@ Sistema de Gerenciamento de Pedidos
 }
 ```
 **OR**
+**CSV**
 ``` csv
 name,description,price,stockQuantity
 Product1,Description1,25.50,10
