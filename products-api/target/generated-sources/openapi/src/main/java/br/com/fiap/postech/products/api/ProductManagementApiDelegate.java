@@ -3,6 +3,7 @@ package br.com.fiap.postech.products.api;
 import br.com.fiap.postech.products.model.ErrorResponse;
 import br.com.fiap.postech.products.model.ProductApiModel;
 import br.com.fiap.postech.products.model.ProductCsvUploadResponse;
+import br.com.fiap.postech.products.model.UpdateProductStockRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -182,6 +183,43 @@ public interface ProductManagementApiDelegate {
                         ApiUtil.setExampleResponse(request, "application/json", exampleString);
                         break;
                     }
+                    if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                        String exampleString = "{ \"message\" : \"message\", \"status\" : 5, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                        ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                        break;
+                    }
+                    if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                        String exampleString = "{ \"message\" : \"message\", \"status\" : 5, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                        ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                        break;
+                    }
+                    if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                        String exampleString = "{ \"message\" : \"message\", \"status\" : 5, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }";
+                        ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                        break;
+                    }
+                }
+            });
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }, Runnable::run);
+
+    }
+
+    /**
+     * PATCH /products/update-stock : Update stock quantities for multiple products
+     * Updates the stock quantities for a list of products.
+     *
+     * @param updateProductStockRequest  (required)
+     * @return Stock quantities successfully updated. (status code 200)
+     *         or Invalid request payload. (status code 400)
+     *         or Product not found. (status code 404)
+     *         or Internal server error. (status code 500)
+     * @see ProductManagementApi#updateProductStock
+     */
+    default CompletableFuture<ResponseEntity<Void>> updateProductStock(List<@Valid UpdateProductStockRequest> updateProductStockRequest) {
+        return CompletableFuture.supplyAsync(()-> {
+            getRequest().ifPresent(request -> {
+                for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                     if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                         String exampleString = "{ \"message\" : \"message\", \"status\" : 5, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }";
                         ApiUtil.setExampleResponse(request, "application/json", exampleString);

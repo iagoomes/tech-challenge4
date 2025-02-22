@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/products-api/products-api.iml" filepath="$PROJECT_DIR$/products-api/products-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/techchallenge4.iml" filepath="$PROJECT_DIR$/techchallenge4.iml" />
     </modules>
   </component>

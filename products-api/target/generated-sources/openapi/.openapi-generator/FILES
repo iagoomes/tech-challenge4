@@ -5,3 +5,4 @@ src/main/java/br/com/fiap/postech/products/api/ProductManagementApiDelegate.java
 src/main/java/br/com/fiap/postech/products/model/ErrorResponse.java
 src/main/java/br/com/fiap/postech/products/model/ProductApiModel.java
 src/main/java/br/com/fiap/postech/products/model/ProductCsvUploadResponse.java
+src/main/java/br/com/fiap/postech/products/model/UpdateProductStockRequest.java

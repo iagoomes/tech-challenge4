@@ -30,6 +30,9 @@ springdoc:
   packages-to-scan: br.com.fiap.postech.customers.interfaces.rest
   api-docs:
     enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 # Logging
 logging:
   level:

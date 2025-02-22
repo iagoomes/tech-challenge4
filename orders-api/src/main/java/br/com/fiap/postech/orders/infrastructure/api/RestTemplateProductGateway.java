@@ -34,7 +34,7 @@ public class RestTemplateProductGateway implements ProductGateway {
 
     @Override
     public void subtractStocks(final List<QuantityItemResquestDTO> quantityItemRequestDTO) {
-        String url = productServiceUrl + "/";
+        String url = productServiceUrl + "/update-stock";
         restTemplate.patchForObject(url, quantityItemRequestDTO, Void.class);
     }
 }

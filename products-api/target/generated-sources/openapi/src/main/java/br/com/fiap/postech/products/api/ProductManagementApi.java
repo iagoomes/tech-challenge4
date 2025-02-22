@@ -8,6 +8,7 @@ package br.com.fiap.postech.products.api;
 import br.com.fiap.postech.products.model.ErrorResponse;
 import br.com.fiap.postech.products.model.ProductApiModel;
 import br.com.fiap.postech.products.model.ProductCsvUploadResponse;
+import br.com.fiap.postech.products.model.UpdateProductStockRequest;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -233,6 +234,48 @@ public interface ProductManagementApi {
         @Parameter(name = "ProductApiModel", description = "Product request payload.", required = true) @Valid @RequestBody ProductApiModel productApiModel
     ) {
         return getDelegate().updateProductById(id, productApiModel);
+    }
+
+
+    /**
+     * PATCH /products/update-stock : Update stock quantities for multiple products
+     * Updates the stock quantities for a list of products.
+     *
+     * @param updateProductStockRequest  (required)
+     * @return Stock quantities successfully updated. (status code 200)
+     *         or Invalid request payload. (status code 400)
+     *         or Product not found. (status code 404)
+     *         or Internal server error. (status code 500)
+     */
+    @Operation(
+        operationId = "updateProductStock",
+        summary = "Update stock quantities for multiple products",
+        description = "Updates the stock quantities for a list of products.",
+        tags = { "Product Management" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Stock quantities successfully updated."),
+            @ApiResponse(responseCode = "400", description = "Invalid request payload.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Product not found.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PATCH,
+        value = "/products/update-stock",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    default CompletableFuture<ResponseEntity<Void>> updateProductStock(
+        @Parameter(name = "UpdateProductStockRequest", description = "", required = true) @Valid @RequestBody List<@Valid UpdateProductStockRequest> updateProductStockRequest
+    ) {
+        return getDelegate().updateProductStock(updateProductStockRequest);
     }
 
 

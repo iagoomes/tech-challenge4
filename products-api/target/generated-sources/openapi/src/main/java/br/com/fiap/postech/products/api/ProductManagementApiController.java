@@ -3,6 +3,7 @@ package br.com.fiap.postech.products.api;
 import br.com.fiap.postech.products.model.ErrorResponse;
 import br.com.fiap.postech.products.model.ProductApiModel;
 import br.com.fiap.postech.products.model.ProductCsvUploadResponse;
+import br.com.fiap.postech.products.model.UpdateProductStockRequest;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
